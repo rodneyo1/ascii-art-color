@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func HandleLn(s string, b [][]string, color *string, output *string, tocolor string) {
+func HandleLn(s string, b [][]string, color *string, tocolor string) {
 	if s == "" {
 		fmt.Print()
 		return
@@ -33,10 +33,6 @@ func HandleLn(s string, b [][]string, color *string, output *string, tocolor str
 			fmt.Println()
 			continue
 		}
-		if *output != "" {
-			PrintToBanner(char, b, color, output, tocolor)
-		} else {
-			Printer(char, b, color, tocolor)	
-		}
+		Printer(char, b, color, tocolor)	
 	}
 }
