@@ -33,6 +33,6 @@ func HandleLn(s string, b [][]string, color *string, tocolor string) {
 			fmt.Println()
 			continue
 		}
-		Printer(char, b, color, tocolor)	
+		Printer(char, b, color, tocolor)
 	}
 }
