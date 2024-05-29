@@ -5,61 +5,52 @@ import (
 	"strings"
 )
 
+// Color map to hold ANSI escape codes
+var colorMap = map[string]string{
+	"Red":     "\033[31m",
+	"Green":   "\033[32m",
+	"Yellow":  "\033[33m",
+	"Blue":    "\033[34m",
+	"Magenta": "\033[35m",
+	"Cyan":    "\033[36m",
+	"Gray":    "\033[37m",
+	"White":   "\033[97m",
+}
+
+// Printer prints the ASCII art string with the specified color
 func Printer(s string, b [][]string, color *string, tocolor string) {
-	var Reset = "\033[0m" 
-	var Red = "\033[31m" 
-	var Green = "\033[32m" 
-	var Yellow = "\033[33m" 
-	var Blue = "\033[34m" 
-	var Magenta = "\033[35m" 
-	var Cyan = "\033[36m" 
-	var Gray = "\033[37m" 
-	var White = "\033[97m"
-	var chosenColor string
-	switch *color {
-	case "Red":
-		chosenColor = Red
-	case "Green":
-		chosenColor = Green 
-	case "Yellow":
-		chosenColor = Yellow
-	case "Blue":
-		chosenColor = Blue
-	case "Magenta":
-		chosenColor = Magenta
-	case "Cyan":
-		chosenColor = Cyan
-	case "Gray":
-		chosenColor = Gray
-	case "White":
-		chosenColor = White 
-	default:
-		// fmt.Println("Invalid color! Refer to README.md")
-		// os.Exit(0)
+	// ANSI reset code
+	var Reset = "\033[0m"
+
+	// Default to no color if the specified color is not found in the map
+	chosenColor := ""
+	if val, ok := colorMap[strings.Title(*color)]; ok {
+		chosenColor = val
+	} else {
+		fmt.Println("Invalid color! Refer to README.md")
+		return
 	}
-	
-	// map each character of a string to its ascii character in our set
+
+	// Map each character of the string to its ASCII character in the set
 	if tocolor == "" { // if character to color is not provided color the whole text
 		for i := 0; i < 9; i++ {
 			for _, char := range s {
 				toPrint := char - 32
-				fmt.Print(chosenColor+b[toPrint][i]+Reset)
+				fmt.Print(chosenColor + b[toPrint][i] + Reset)
 			}
 			fmt.Println()
 		}
 	} else {
 		for i := 0; i < 9; i++ {
 			for _, char := range s {
-				if strings.Contains(tocolor, string(char)) {
-					toPrint := char - 32
-					fmt.Print(chosenColor+b[toPrint][i]+Reset)
-					continue
-				}
 				toPrint := char - 32
-				fmt.Print(b[toPrint][i]) // write the art onto the created file
+				if strings.Contains(tocolor, string(char)) {
+					fmt.Print(chosenColor + b[toPrint][i] + Reset)
+				} else {
+					fmt.Print(b[toPrint][i])
+				}
 			}
 			fmt.Println()
 		}
 	}
-	
 }

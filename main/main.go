@@ -88,6 +88,7 @@ func main() {
 		character = lines[i:end]
 		result = append(result, character)
 	}
+
 	
 	// Format ("/n") in input string
 	s := strings.Replace(r, "\\n", "\n", -1)
