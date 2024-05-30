@@ -16,9 +16,6 @@ func Printer(s string, b [][]string, color *string, tocolor string) {
 
 	if exists {
 		chosenColor = colorCode
-	} else {
-		fmt.Println("Invalid color! Refer to README.md")
-		return
 	}
 
 	// Map each character of the string to its ASCII character in the set
