@@ -18,6 +18,9 @@ func main() {
 		os.Exit(0)
 	}
 	flag.Parse()
+	if len(flag.Args()) == 0 {
+		flag.Usage()
+	}
 
 	for _, arg := range os.Args {
 		if arg[len(arg)-1] == '=' {
