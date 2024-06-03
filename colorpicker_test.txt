@@ -1,1 +1,0 @@
-//Test the color function with a string

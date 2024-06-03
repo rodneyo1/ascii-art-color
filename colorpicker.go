@@ -57,7 +57,7 @@ func colorPicker(color string) (string, bool) {
 	}
 
 	// Check if the input is a hex string (with or without #)
-	if len(color) == 6 || (len(color) == 7 && strings.HasPrefix(color, "#")) {
+	if len(color) == 7 && strings.HasPrefix(color, "#") {
 		r, g, b := HexToRGB(color)
 		ansiColorCode := rgbToAnsi(r, g, b)
 		return fmt.Sprintf("\033[38;5;%dm", ansiColorCode), true
