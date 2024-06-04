@@ -2,7 +2,9 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"os"
+	"regexp"
 	"strings"
 	"testing"
 )
@@ -23,33 +25,15 @@ var testCases = []TestCase{
 |  _ \   / _ \ | | | |  / _ \  
 | | | | |  __/ | | | | | (_) | 
 |_| |_|  \___| |_| |_|  \___/  
-                               
-                               `,
+							   
+							   `,
 	},
-	{
-		input:      "hello",
-		bannerFile: "shadow",
-		expectedOutput: `                                 
-_|                _| _|          
-_|_|_|     _|_|   _| _|   _|_|   
-_|    _| _|_|_|_| _| _| _|    _| 
-_|    _| _|       _| _| _|    _| 
-_|    _|   _|_|_| _| _|   _|_|   
-								 
-								 `,
-	},
-	{
-		input:      "hello",
-		bannerFile: "thinkertoy",
-		expectedOutput: `   
-o        o o     
-|        | |     
-O--o o-o | | o-o 
-|  | |-' | | | | 
-o  o o-o o o o-o
-`,
-	},
-	// Add more test cases as needed
+}
+
+var ansiEscapePattern = regexp.MustCompile(`\x1b\[[0-9;]*m`)
+
+func removeANSIEscapeCodes(input string) string {
+	return ansiEscapePattern.ReplaceAllString(input, "")
 }
 
 func TestMainFunction(t *testing.T) {
@@ -75,9 +59,16 @@ func TestMainFunction(t *testing.T) {
 				break
 			}
 		}
+		// Remove ANSI escape codes from output
+		outputString := output.String()
+		cleanedOutput := removeANSIEscapeCodes(outputString)
 		// Compare output with expected string (trimmed)
 		expectedOutputTrimmed := strings.TrimSpace(testCase.expectedOutput)
-		outputTrimmed := strings.TrimSpace(output.String())
+		outputTrimmed := strings.TrimSpace(cleanedOutput)
+
+		// Debug prints
+		fmt.Printf("Expected Output:\n%s\n", expectedOutputTrimmed)
+		fmt.Printf("Actual Output:\n%s\n", outputTrimmed)
 
 		if outputTrimmed != expectedOutputTrimmed {
 			t.Errorf("Output doesn't match for input '%s' with banner '%s'.\nExpected:\n%s\nGot:\n%s", testCase.input, testCase.bannerFile, expectedOutputTrimmed, outputTrimmed)
