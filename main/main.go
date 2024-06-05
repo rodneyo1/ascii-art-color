@@ -38,12 +38,23 @@ func main() {
 		if strings.HasPrefix(arg, "-") && !strings.HasPrefix(arg, "--") {
 			flag.Usage()
 		}
+		if strings.HasPrefix(arg, "color") {
+			flag.Usage()
+		}
 	}
 
 	var r string
 	var tocolor string
 	var file *os.File
 	var err error
+
+	file, err = os.Open("standard.txt")
+	if err != nil {
+		fmt.Println("Unable to open file!")
+		os.Exit(0)
+	}
+	defer file.Close()
+	//sort out different input scenarios
 	if len(os.Args) < 2 || len(os.Args) > 5 {
 		fmt.Print("Ooops! few or too many arguments. Usages are:\ngo run . [string]\ngo run . [color option] [string]\ngo run . [color option] [string] [banner]\ngo run . [color option] [string to color] [string]\ngo run . [color option] [string to color] [string] [banner]\n")
 		os.Exit(0)
@@ -54,8 +65,19 @@ func main() {
 		*color = ""
 	}
 	if len(os.Args) == 3 {
-		r = flag.Args()[0]
-		tocolor = ""
+		if os.Args[len(os.Args)-1] == "thinkertoy" || os.Args[len(os.Args)-1] == "standard" || os.Args[len(os.Args)-1] == "shadow"{
+			r = os.Args[1]
+			file, err = os.Open(os.Args[2] + ".txt")
+			if err != nil {
+				fmt.Println("Error opening file:", err)
+				os.Exit(0)
+			}
+			defer file.Close()
+			tocolor = ""
+		} else {
+			r = flag.Args()[0]
+			tocolor = ""
+		}
 	}
 
 	if len(os.Args) == 5 {
@@ -67,13 +89,6 @@ func main() {
 		defer file.Close()
 		r = flag.Args()[1]
 		tocolor = flag.Args()[0]
-	} else {
-		file, err = os.Open("standard.txt")
-		if err != nil {
-			fmt.Println("Unable to open file!")
-			os.Exit(0)
-		}
-		defer file.Close()
 	}
 
 	if len(os.Args) == 4 {
