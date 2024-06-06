@@ -42,6 +42,7 @@ func main() {
 			flag.Usage()
 		}
 	}
+	
 
 	var r string
 	var tocolor string
@@ -56,8 +57,9 @@ func main() {
 	defer file.Close()
 	//sort out different input scenarios
 	if len(os.Args) < 2 || len(os.Args) > 5 {
-		fmt.Print("Ooops! few or too many arguments. Usages are:\ngo run . [string]\ngo run . [color option] [string]\ngo run . [color option] [string] [banner]\ngo run . [color option] [string to color] [string]\ngo run . [color option] [string to color] [string] [banner]\n")
-		os.Exit(0)
+		flag.Usage()
+		// fmt.Print("Ooops! few or too many arguments. Usages are:\ngo run . [string]\ngo run . [color option] [string]\ngo run . [color option] [string] [banner]\ngo run . [color option] [string to color] [string]\ngo run . [color option] [string to color] [string] [banner]\n")
+		// os.Exit(0)
 	}
 	if len(os.Args) == 2 {
 		r = os.Args[1]
