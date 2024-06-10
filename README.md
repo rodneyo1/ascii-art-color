@@ -1,4 +1,13 @@
 # ASCII Art Color
+```
+                         _    _          _   _          
+                        | |  | |        | | | |         
+                        | |__| |   ___  | | | |   ___   
+                        |  __  |  / _ \ | | | |  / _ \  
+                        | |  | | |  __/ | | | | | (_) | 
+                        |_|  |_|  \___| |_| |_|  \___/  
+                                                                                      
+```
 
 This Go program generates ASCII art from a given string using specified fonts and colors. It includes various features such as color customization and font selection. This README provides details on how to use the program, including different ways to run it, and lists its limitations.
 
