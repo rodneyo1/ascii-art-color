@@ -42,7 +42,6 @@ func main() {
 			flag.Usage()
 		}
 	}
-	
 
 	var r string
 	var tocolor string
@@ -67,7 +66,7 @@ func main() {
 		*color = ""
 	}
 	if len(os.Args) == 3 {
-		if os.Args[len(os.Args)-1] == "thinkertoy" || os.Args[len(os.Args)-1] == "standard" || os.Args[len(os.Args)-1] == "shadow"{
+		if os.Args[len(os.Args)-1] == "thinkertoy" || os.Args[len(os.Args)-1] == "standard" || os.Args[len(os.Args)-1] == "shadow" {
 			r = os.Args[1]
 			file, err = os.Open(os.Args[2] + ".txt")
 			if err != nil {

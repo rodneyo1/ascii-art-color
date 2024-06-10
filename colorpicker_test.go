@@ -12,11 +12,11 @@ func TestColorPicker(t *testing.T) {
 	}{
 		{"red", "\033[31m", true},
 		{"blue", "\033[34m", true},
-		{"#FF5733", "\033[38;5;203m", true}, // orange hex code
-		{"255,0,0", "\033[38;5;196m", true}, // RGB for red
+		{"#FF5733", "\033[38;5;203m", true},      // orange hex code
+		{"rgb(255,0,0)", "\033[38;5;196m", true}, // RGB for red
 		{"unknown", "", false},
 		{"#invalid", "", false},
-		{"256,256,256", "", false},
+		{"rgb(256,256,256)", "", false},
 	}
 
 	for _, test := range tests {

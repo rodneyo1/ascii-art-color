@@ -65,7 +65,7 @@ func colorPicker(color string) (string, bool) {
 
 	// Check if the input is an RGB string
 	if strings.Contains(color, "rgb") {
-		rgbValue := color[4:len(color)-1]
+		rgbValue := color[4 : len(color)-1]
 		rgb := strings.Split(rgbValue, ",")
 		if len(rgb) == 3 {
 			r, err1 := strconv.Atoi(rgb[0])
